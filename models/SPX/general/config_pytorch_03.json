@@ -1,0 +1,9 @@
+{
+    "input_dim": 58,
+    "hidden_dims": [
+        128,
+        128,
+        128
+    ],
+    "dropout_prob": 0.3
+}

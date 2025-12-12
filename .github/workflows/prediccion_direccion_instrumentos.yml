@@ -1,0 +1,46 @@
+name: PrediceDireccionInstrumentos
+
+on:
+  schedule:
+    - cron: '45 2 * * *'  # 00:45 UTC = 22:45 Venezuela
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  ejecutar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Ejecutar script principal
+        run: python main.py
+        env:
+            TF_ENABLE_ONEDNN_OPTS: 0
+
+      - name: Configurar Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Commit y push de cambios
+        run: |
+          git add models/data/predicciones_aciertos_btcusd.parquet
+          git add models/data/predicciones_aciertos_eurusd.parquet
+          git add models/data/predicciones_aciertos_spx.parquet
+          git add models/data/predicciones_aciertos_xauusd.parquet
+          git commit -m "Actualización automática: $(date '+%Y-%m-%d %H:%M')" || echo "Sin cambios para commitear"
+          git push
