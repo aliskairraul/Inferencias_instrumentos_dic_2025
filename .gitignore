@@ -11,3 +11,5 @@ venv/
 # 3) Ignorar archivo específico dentro de una subcarpeta
 requirements_totales.txt
 .flake8
+ayuda.txt
+.gitignore
