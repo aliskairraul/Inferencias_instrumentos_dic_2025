@@ -3,20 +3,20 @@ from pathlib import Path
 from datetime import date
 
 paths = {
-    'BTCUSD': Path('db/btcusd-D1_2010-07-17_actualidad.parquet'),
-    'EURUSD': Path('db/eurusd-D1_2000-01-03_actualidad.parquet'),
-    'SPX': Path('db/sp500-D1_2000-01-03_actualidad.parquet'),
-    'XAUUSD': Path('db/xauusd-D1_2000-01-03_actualidad.parquet'),
-    'US10Y': Path('db/us10y-D1_2000-01-03_actualidad.parquet'),
-    'USDX': Path('db/usdx-D1_2000-01-03_actualidad.parquet'),
-    'feriados': Path('db/feriados_usa.parquet')
+    'BTCUSD': Path('data/db/btcusd-D1_2010-07-17_actualidad.parquet'),
+    'EURUSD': Path('data/db/eurusd-D1_2000-01-03_actualidad.parquet'),
+    'SPX': Path('data/db/sp500-D1_2000-01-03_actualidad.parquet'),
+    'XAUUSD': Path('data/db/xauusd-D1_2000-01-03_actualidad.parquet'),
+    'US10Y': Path('data/db/us10y-D1_2000-01-03_actualidad.parquet'),
+    'USDX': Path('data/db/usdx-D1_2000-01-03_actualidad.parquet'),
+    'feriados': Path('data/db/feriados_usa.parquet')
 }
 
 paths_resultados = {
-    "BTCUSD": Path("models/data/predicciones_aciertos_btcusd.parquet"),
-    "EURUSD": Path("models/data/predicciones_aciertos_eurusd.parquet"),
-    "SPX": Path("models/data/predicciones_aciertos_spx.parquet"),
-    "XAUUSD": Path("models/data/predicciones_aciertos_xauusd.parquet")
+    "BTCUSD": Path("data/inferencias/predicciones_aciertos_btcusd.parquet"),
+    "EURUSD": Path("data/inferencias/predicciones_aciertos_eurusd.parquet"),
+    "SPX": Path("data/inferencias/predicciones_aciertos_spx.parquet"),
+    "XAUUSD": Path("data/inferencias/predicciones_aciertos_xauusd.parquet")
 }
 
 urls = {
@@ -71,19 +71,19 @@ def calendario(fecha_inicio: date, fecha_fin: date) -> pl.DataFrame:
 
 
 estrategia_btcusd = {
-    "sklearn": "",
-    "xgboost": "SUBE",
-    "lightgbm": "",
-    "pytorch": "SUBE",
-    "tensorflow": "AMBOS"
+    "sklearn": "BAJA",  # listo
+    "xgboost": "BAJA",  # listo
+    "lightgbm": "BAJA",  # listo
+    "pytorch": "",  # listo
+    "tensorflow": "BAJA"  # listo
 }
 
 estrategia_eurusd = {
-    "sklearn": "SUBE",
-    "xgboost": "SUBE",
-    "lightgbm": "SUBE",
-    "pytorch": "SUBE",
-    "tensorflow": "BAJA"
+    "sklearn": "SUBE",  # listo
+    "xgboost": "SUBE",  # listo
+    "lightgbm": "SUBE",  # listo
+    "pytorch": "SUBE",  # listo
+    "tensorflow": "SUBE"  # listo
 }
 
 estrategia_xauusd = {
@@ -101,34 +101,4 @@ estrategia_spx = {
     "pytorch": "SUBE",
     "tensorflow": "SUBE"
 }
-
-estrategias = [estrategia_btcusd, estrategia_eurusd, estrategia_spx, estrategia_xauusd]
-indice_estrategias = {"BTCUSD": 0, "EURUSD": 1, "SPX": 2, "XAUUSD": 3}
-librerias = ["sklearn", "xgboost", "lightgbm", "pytorch", "tensorflow"]
-
-'''
-# Este String "20090522  07:30:00" Se transforma en 3 columnas nuevas una tipo `date`` y dos tipo `int``
-def retorna_struct_datetime(cadena: str):
-    cadena = cadena.replace("  ", " ")
-
-    parte_1 = cadena.split(" ")[0]
-    anio = int(parte_1[:4])
-    mes = int(parte_1[4:6])
-    dia = int(parte_1[6:])
-    date_temp = date(anio, mes, dia)
-
-    parte_2 = cadena.split(" ")[1]
-    hour = int(parte_2.split(":")[0].strip())
-    minute = int(parte_2.split(":")[1].strip())
-
-    return {"date_temp": date_temp, "hour": hour, "minute": minute}
-
-
-df = df.with_columns([
-    pl.col("date")
-      .map_elements(retorna_struct_datetime, return_dtype=pl.Struct({'date_temp': pl.Date, 'hour': pl.Int64, 'minute': pl.Int64}))
-      .alias("datetime_struct")
-]).unnest("datetime_struct")
-
-df.head(1)
-'''
+estrategias = {"BTCUSD": estrategia_btcusd, "EURUSD": estrategia_eurusd, "XAUUSD": estrategia_xauusd, "SPX": estrategia_spx}
