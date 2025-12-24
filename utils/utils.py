@@ -12,7 +12,7 @@ paths = {
     'feriados': Path('data/db/feriados_usa.parquet')
 }
 
-paths_resultados = {
+paths_inferencias = {
     "BTCUSD": Path("data/inferencias/predicciones_aciertos_btcusd.parquet"),
     "EURUSD": Path("data/inferencias/predicciones_aciertos_eurusd.parquet"),
     "SPX": Path("data/inferencias/predicciones_aciertos_spx.parquet"),

@@ -8,7 +8,7 @@ from functions.add_features import add_features
 from functions.split_evalua import split_prediccion
 from functions.cargar_diccionario_modelos import cargar_modelos
 from functions.inferencias import inferencias
-from utils.utils import paths, paths_resultados
+from utils.utils import paths, paths_inferencias
 from utils.logger import get_logger
 
 logger = get_logger("Inferencia de Predicciones")
@@ -42,7 +42,7 @@ def main():
             df_pred, df_pred_pond = inferencias(modelos=diccionario_modelos, X=X, df=df, parametros=parametros, elegido=elegido)
 
             logger.info(f"Guardando data del instrumento {elegido}")
-            df_pred_pond.write_parquet(paths_resultados[elegido])
+            df_pred_pond.write_parquet(paths_inferencias[elegido])
         except Exception as e:
             logger.error(f"Error en la ejecusion durante el instrumento {elegido} --> {e}")
     return
