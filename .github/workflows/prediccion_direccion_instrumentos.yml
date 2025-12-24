@@ -38,9 +38,9 @@ jobs:
 
       - name: Commit y push de cambios
         run: |
-          git add models/data/predicciones_aciertos_btcusd.parquet
-          git add models/data/predicciones_aciertos_eurusd.parquet
-          git add models/data/predicciones_aciertos_spx.parquet
-          git add models/data/predicciones_aciertos_xauusd.parquet
+          git add inferencias/data/predicciones_aciertos_btcusd.parquet
+          git add inferencias/data/predicciones_aciertos_eurusd.parquet
+          git add inferencias/data/predicciones_aciertos_spx.parquet
+          git add inferencias/data/predicciones_aciertos_xauusd.parquet
           git commit -m "Actualización automática: $(date '+%Y-%m-%d %H:%M')" || echo "Sin cambios para commitear"
           git push
